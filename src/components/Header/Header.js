@@ -16,7 +16,8 @@ const Header = ({ title }) => {
             <h1>{title}</h1>
             <br />
             <div>
-                <Button color="danger" onClick={() => seClickeo()} >Peligro</Button>
+                <Button className='btn-header' color="danger" onClick={() => seClickeo()} >Peligro</Button>
+                <Button className='btn-header' color='warning'>Alerta</Button>
             </div>
         </div>
     )

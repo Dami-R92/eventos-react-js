@@ -1,31 +1,38 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import axios from 'axios';
+
 //Reactstrap
 import { InputGroup, InputGroupAddon, Input, Button } from 'reactstrap';
 
 //COMPONENTES
 import Header from './components/Header/Header.js';
+import CardUser from './components/CardUser/CardUser';
 
 
 const App = () => {
   const [inputText, setUpInputText] = useState('');
 
-  const onHandleChange = (e)=> {
+  const [userData, setUserData] = useState({});
+
+  const onHandleChange = (e) => {
     // console.log(e.target.value);
     setUpInputText(e.target.value);
-    console.log('Inputtext', inputText);
   };
 
-  const onHandleSubmit = (e)=> {
-    //Para prevenir el efect por defaul de un form cuando se hace un submit.
+  const onHandleSubmit = (e) => {
+    //Para prevenir el efect por default de un form cuando se hace un submit.
     //DEBEMOS UTILIZAR UN PREVENTDEFAULT.
     e.preventDefault();
-    console.log('Hiciste Submit!');
-    // axios(`https://api.github.com/users/${inputText}`)
+    const userInput = inputText.toLocaleLowerCase().replace(/ /g, '')//Sanitizar la variable de espacios y mayusculas.
+    // console.log(userInput);
+    if (userInput) {
+      axios(`https://api.github.com/users/${userInput}`).then((res) =>
+        // console.log(res.data)
+        setUserData(res.data)
+      );
+    };
   };
-
-
 
   return (
     <div className="App">
@@ -39,9 +46,13 @@ const App = () => {
               <Button color='primary' >Buscar</Button>
             </InputGroupAddon>
           </InputGroup>
-
         </form>
+        {/* <Button className='btn-explote' color='success'>Make it Boom!</Button> */}
       </div>
+      <div className="App-Container-Data">
+        <CardUser userData={userData}/>
+      </div>
+
     </div>
   );
 }
