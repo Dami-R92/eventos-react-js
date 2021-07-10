@@ -32,6 +32,8 @@ const App = () => {
         setUserData(res.data)
       );
     };
+    //Limpiamos el input despues de la busqueda.
+    setUpInputText('');
   };
 
   return (
@@ -41,7 +43,7 @@ const App = () => {
       <div className="App-form">
         <form onSubmit={onHandleSubmit} >
           <InputGroup  >
-            <Input placeholder='Buscar Usuario' onChange={onHandleChange} />
+            <Input placeholder='Buscar Usuario' onChange={onHandleChange} value={inputText} />
             <InputGroupAddon addonType='prepend'>
               <Button color='primary' >Buscar</Button>
             </InputGroupAddon>
@@ -49,9 +51,15 @@ const App = () => {
         </form>
         {/* <Button className='btn-explote' color='success'>Make it Boom!</Button> */}
       </div>
-      <div className="App-Container-Data">
-        <CardUser userData={userData}/>
-      </div>
+
+      {/* {userData.id ? (<div className="App-Container-Data">
+        <CardUser userData={userData} />
+      </div>) : null } */}
+
+      {/* Otra forma mas elegante */}
+      {userData.id && (<div className="App-Container-Data">
+        <CardUser userData={userData} />
+      </div>)}
 
     </div>
   );

@@ -14,7 +14,7 @@ const CardUser = ({ userData }) => {
                     <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle>
                     <CardText>{userData.bio}
                     </CardText>
-                    <Button>Button</Button>
+                    <Button href={userData.html_url} target= '_blank'>Ir al perfil GH</Button>
                 </CardBody>
             </Card>
         </div>
